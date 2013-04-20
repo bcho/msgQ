@@ -2,3 +2,5 @@ venv/
 *swp
 *~
 *pyc
+
+test.py
