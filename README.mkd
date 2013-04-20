@@ -1,3 +1,3 @@
 # msgQ
 
-System wide message queue. Like dbus and [fedmsg](fedmsg.org)
+System wide message queue. Like dbus and [fedmsg](http://www.fedmsg.com)
