@@ -4,3 +4,8 @@ venv/
 *pyc
 
 test.py
+
+# build stuff
+build/
+dist/
+msgQ.egg-info/
