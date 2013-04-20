@@ -14,7 +14,8 @@ setup(name='msgQ',
       packages=[
           'msgQ',
           'msgQ.server',
-          'msgQ.scripts'
+          'msgQ.scripts',
+          'msgQ.tests',
       ],
       entry_points={
           'console_scripts': [
