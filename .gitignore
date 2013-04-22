@@ -4,6 +4,7 @@ venv/
 *pyc
 
 test.py
+msgqconf.py
 
 # build stuff
 build/
