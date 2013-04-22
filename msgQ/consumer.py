@@ -25,7 +25,7 @@ class MsgConsumer(object):
             raise AttributeError
 
         import sh
-        c = sh.Command(self.command)(self._extra_args, payload)
+        c = sh.Command(self.command)(payload, self._extra_args)
         c.wait()
         return c.exit_code
 

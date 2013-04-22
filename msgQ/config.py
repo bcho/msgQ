@@ -10,14 +10,19 @@ from consumer import MsgConsumer
 logger = logging.getLogger('msgQ')
 
 MSGQ_ERROR_TOPIC = 'msgQ.error'
+MSGQ_GREET_TOPIC = 'msgQ.greeting'
 DEFAULT_CONFIG_FILE = 'msgqconf.py'
 
 BUILTIN_COMMANDS = [
     dict(
         topic=MSGQ_ERROR_TOPIC,
         command='notify-send',
-        args='-u critical',
+        args='--urgency=critical',
         activate=True
+    ),
+    dict(
+        topic=MSGQ_GREET_TOPIC,
+        command='notify-send'
     )
 ]
 BUILTIN = {
