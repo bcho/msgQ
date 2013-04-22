@@ -27,7 +27,11 @@ class MsgHandler(SocketServer.BaseRequestHandler, _Publisher):
                 self.data = {'msg': recv}
             self.request.send(json.dumps({'result': 0}) + '\n')
         except ValueError as e:
-            self.data = {'msg': recv, 'topic': '*', 'mod': 'error'}
+            self.data = {
+                'msg': 'Received raw message %s' % recv,
+                'topic': 'error',
+                'mod': 'msgQ'
+            }
             self.request.send(json.dumps({
                 'result': 1,
                 'err': e[0]
