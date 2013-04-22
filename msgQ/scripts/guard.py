@@ -2,18 +2,21 @@
 
 import os
 import logging
-
 import daemon
+
 from msgQ.server import create_server
+from msgQ import config
 
 
 logger = logging.getLogger('msgQ')
+_config = config.load()
 
 
 def serve():
-    server, thread = create_server('', 1234)
+    server, thread = create_server(_config['address'], _config['port'])
     try:
-        logger.info('Server started... don\'t forget to run rqworker...')
+        logger.info('Server start listening at %(address)s:%(port)d...'
+                    'don\'t forget to run rqworker...' % (_config))
         server.serve_forever()
     finally:
         server.shutdown()

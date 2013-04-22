@@ -6,11 +6,11 @@ msgQ.commands
 
 import logging
 
-from msgQ.config import commands as subscribers
-from msgQ.consumer import MsgConsumer
+from msgQ import config
 
 
 logger = logging.getLogger('msgQ')
+subscribers = config.load().get('commands', [])
 
 
 def _topic_cmp(key, topic):
@@ -29,16 +29,7 @@ def get_commands(topic):
     logger.debug('Checking commands for %s' % (topic, ))
 
     commands = []
-    for k, c in subscribers.items():
-        if _topic_cmp(k, topic):
-            if not isinstance(c, MsgConsumer):
-                if isinstance(c, str):
-                    commands.append(MsgConsumer.from_raw(k, c).consume_raw)
-                else:
-                    logger.warning('Unsupported command! %s' % k)
-            else:
-                if c.key == k:
-                    commands.append(c.consume)
-                else:
-                    logger.warning('Unmatched key! %s' % k)
+    for sub in subscribers:
+        if sub.get('activate', True) and _topic_cmp(sub['topic'], topic):
+            commands.append(sub['command'].consume)
     return commands
