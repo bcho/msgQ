@@ -8,9 +8,11 @@ import msgQ
 
 class _Publisher(object):
     def publish(self, recv):
-        mod, topic = str(recv.get('mod', '*')), str(recv.get('topic', '*'))
+        mod, topic = str(recv.get('mod', '')), str(recv.get('topic', '*'))
+        if mod:
+            topic = '%s.%s' % (mod, topic)
         msg = recv.get('msg', '')
-        msgQ.publish(msg, topic='%s.%s' % (mod, topic))
+        msgQ.publish(msg, topic=topic)
 
 
 class MsgHandler(SocketServer.BaseRequestHandler, _Publisher):
