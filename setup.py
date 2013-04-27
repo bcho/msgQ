@@ -19,7 +19,7 @@ setup(name='msgQ',
       ],
       entry_points={
           'console_scripts': [
-              'msgq-guardd=msgQ.scripts.guard:main',
+              'msgqctl=msgQ.scripts.guard:main',
               'msgq-guard=msgQ.scripts.guard:serve',
           ]
       },
