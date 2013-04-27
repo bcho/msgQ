@@ -1,5 +1,6 @@
+docopt==0.6.1
 lockfile==0.9.1
-python-daemon==1.6
+msgQ==0.0.1
 python-dateutil==2.1
 pytz==2013b
 redis==2.7.2
