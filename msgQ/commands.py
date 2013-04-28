@@ -1,16 +1,11 @@
+#!/usr/bin/env python
 #coding: utf-8
 
-'''
-msgQ.commands
-'''
 
-import logging
-
-from msgQ import config
-
-
-logger = logging.getLogger('msgQ')
-subscribers = config.load().get('commands', [])
+def _mod_cmp(key, mod):
+    if not key or not mod:
+        return True
+    return key == mod
 
 
 def _topic_cmp(key, topic):
@@ -25,11 +20,11 @@ def _topic_cmp(key, topic):
     return True
 
 
-def get_commands(topic):
-    logger.debug('Checking commands for %s' % (topic, ))
+def get(mod, topic, subscribers):
 
     commands = []
     for sub in subscribers:
-        if sub.get('activate', True) and _topic_cmp(sub['topic'], topic):
+        if sub.get('activate', True) and _mod_cmp(sub.get('mod'), mod) and\
+                _topic_cmp(sub.get('topic', '*'), topic):
             commands.append(sub['command'].consume)
     return commands

@@ -1,10 +1,6 @@
+#!/usr/bin/env python
 #coding: utf-8
 
-
-from .logger import setup_logger
-logger = setup_logger('msgQ')
-
-from .pub import publish
-
-
-__all__ = ['publish']
+__name__ = 'msgQ'
+__version__ = '0.0.2'
+__author__ = 'hbc <bcxxxxxx@gmail.com>'

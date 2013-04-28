@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 #coding: utf-8
 
 import logging
@@ -15,7 +16,7 @@ def logging_factory(handler, level=None, format=None):
     return handler
 
 
-def setup_logger(name, level=None, format=None, handler=None):
+def setup(name, level=None, format=None, handler=None):
     logger = logging.getLogger(name)
     logger = logging_factory(logger, level, format)
 
