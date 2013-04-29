@@ -14,7 +14,10 @@ logger = logging.getLogger(msgQ.__name__)
 MSGQ_MOD = 'msgQ'
 MSGQ_ERROR_TOPIC = 'error'
 MSGQ_GREET_TOPIC = 'greeting'
+DEFAULT_CONFIG_PATH = '~/.config/msgq'
 DEFAULT_CONFIG_FILE = 'msgqconf.py'
+CONFIG_PATH = [os.path.join(DEFAULT_CONFIG_PATH, DEFAULT_CONFIG_FILE),
+               DEFAULT_CONFIG_FILE]
 
 BUILTIN_COMMANDS = [
     dict(
@@ -39,6 +42,11 @@ BUILTIN_CONFIG = {
 
 def build(setting_file=None):
     def _load_config_from_file(fname):
+        fname = os.path.abspath(os.path.expanduser(fname))
+        if not os.path.exists(fname):
+            logger.warning('Config file %s does not exist!' % (setting_file))
+            return None, None
+
         local = {}
         execfile(fname, {}, local)
 
@@ -53,15 +61,17 @@ def build(setting_file=None):
                     c['command'] = Consumer(raw=True, **c)
 
     config = copy.deepcopy(BUILTIN_CONFIG)
+    search_path = CONFIG_PATH
 
-    setting_file = setting_file or DEFAULT_CONFIG_FILE
-    setting_file = os.path.abspath(os.path.expanduser(setting_file))
-    if os.path.exists(setting_file):
-        fconfig, fcommands = _load_config_from_file(setting_file)
-        config.update(fconfig)
-        config['commands'].extend(fcommands)
-    else:
-        logger.warning('Config file %s does not exist!' % (setting_file))
+    if setting_file:
+        search_path.append(setting_file)
+    search_path = list(set(search_path))
+    for config_path in search_path:
+        fconfig, fcommands = _load_config_from_file(config_path)
+        if fconfig:
+            config.update(fconfig)
+        if fcommands:
+            config['commands'].extend(fcommands)
 
     _preprocess_commands(config['commands'])
 
