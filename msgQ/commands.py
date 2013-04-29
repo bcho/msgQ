@@ -1,6 +1,13 @@
 #!/usr/bin/env python
 #coding: utf-8
 
+import logging
+
+import msgQ
+
+
+logger = logging.getLogger(msgQ.__name__)
+
 
 def _mod_cmp(key, mod):
     if not key or not mod:
@@ -21,7 +28,7 @@ def _topic_cmp(key, topic):
 
 
 def get(mod, topic, subscribers):
-
+    logger.debug('Got message from %s.%s' % (mod, topic))
     commands = []
     for sub in subscribers:
         if sub.get('activate', True) and _mod_cmp(sub.get('mod'), mod) and\
