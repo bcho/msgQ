@@ -31,7 +31,7 @@ def get(mod, topic, subscribers):
     logger.debug('Got message from %s.%s' % (mod, topic))
     commands = []
     for sub in subscribers:
-        if sub.get('activate', True) and _mod_cmp(sub.get('mod'), mod) and\
+        if sub.get('activate', True) and _mod_cmp(sub.get('mod', ''), mod) and\
                 _topic_cmp(sub.get('topic', '*'), topic):
             commands.append(sub['command'].consume)
     return commands

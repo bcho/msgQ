@@ -44,7 +44,7 @@ def build(setting_file=None):
     def _load_config_from_file(fname):
         fname = os.path.abspath(os.path.expanduser(fname))
         if not os.path.exists(fname):
-            logger.warning('Config file %s does not exist!' % (setting_file))
+            logger.warning('Config file %s does not exist!' % (fname))
             return None, None
 
         local = {}
