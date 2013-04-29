@@ -26,7 +26,7 @@ Options:
 
 
 def main():
-    log = logger.setup(msgQ.__name__.lower())
+    log = logger.setup(msgQ.__name__)
 
     arguments, command = docopt(opt, version=msgQ.__version__), 'help'
     if len(sys.argv) > 1:
