@@ -15,10 +15,12 @@ setup(name=msgQ.__name__,
       author_email='bcxxxxxx@gmail.com',
       packages=[
           'msgQ',
+          'msgQ.scripts'
       ],
       entry_points={
           'console_scripts': [
               'msgqd=msgQ.cli:main',
+              'msgq=msgQ.scripts.client:main'
           ]
       },
       install_requires=install_requires)
