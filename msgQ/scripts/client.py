@@ -58,9 +58,7 @@ def main():
     topic = args['<topic>'] if args['--topic'] else 'sender.*'
     msg = args['<message>']
 
-    ret = send(host, port, msg, mod, topic)
-
-    return ret
+    send(host, port, msg, mod, topic)
 
 
 if __name__ == '__main__':
